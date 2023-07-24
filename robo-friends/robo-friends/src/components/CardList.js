@@ -1,7 +1,9 @@
 import Card from './Card';
 
-const CardList = (props) => {
-    const {robots} = props;
+const CardList = ({robots}) => {
+    if (true) {
+        throw new Error('Nooooooo!')
+    }
     return (
         robots.map((user, i) => {
             return <Card 
