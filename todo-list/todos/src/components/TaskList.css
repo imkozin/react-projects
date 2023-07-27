@@ -1,0 +1,28 @@
+div {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+span, p {
+    width: 500px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+}
+
+span {
+    text-align: left;
+    background-color: #fff;
+    color: #282c34;
+}
+
+span:hover {
+    text-decoration: line-through;
+}
