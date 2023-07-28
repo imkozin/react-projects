@@ -3,14 +3,16 @@ import './Quote.css'
 import {useEffect, useState} from 'react';
 
 const Quote = () => {
-    console.log(quotes);
-    const [quote, setQuote] = useState(quotes[0]);
-    const [indx, setIndex] = useState(0);
 
     const getRandomColor = () => {
         return "#" + Math.floor(Math.random()*16777215).toString(16);
     }
 
+    console.log(quotes);
+    const [quote, setQuote] = useState(quotes[0]);
+    const [indx, setIndex] = useState(0);
+    const [color, setColor] = useState(getRandomColor())
+    
     const getRandomNumber = () => {
         return Math.floor(Math.random() * quotes.length)
     }
@@ -26,14 +28,16 @@ const Quote = () => {
         console.log(quote.quote);
     }
 
-    const randomColor = getRandomColor();
+    useEffect(() => {
+        setColor(getRandomColor());
+    }, [quote]);
 
     return (
-        <div style={{backgroundColor: randomColor}} className='container'>
+        <div style={{backgroundColor: color}} className='container'>
             <div className='quote-block'>
-                <h1 style={{color: randomColor}} className='quote'>"{quote.quote}"</h1>
-                <h5 style={{color: randomColor}} className='author'>-{quote.author === '' ? 'Unknown' : quote.author}-</h5>
-                <button style={{backgroundColor: randomColor}} onClick={getRandomQuote}>New quote</button>
+                <h1 style={{color: color}} className='quote'>"{quote.quote}"</h1>
+                <h5 style={{color: color}} className='author'>-{quote.author === '' ? 'Unknown' : quote.author}-</h5>
+                <button style={{backgroundColor: color}} onClick={getRandomQuote}>New quote</button>
             </div>
         </div>
     )
