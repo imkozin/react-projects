@@ -1,9 +1,9 @@
 import Card from './Card';
 
 const CardList = ({robots}) => {
-    if (true) {
-        throw new Error('Nooooooo!')
-    }
+    // if (true) {
+    //     throw new Error('Nooooooo!')
+    // }
     return (
         robots.map((user, i) => {
             return <Card 

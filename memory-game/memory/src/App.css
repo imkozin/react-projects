@@ -1,0 +1,19 @@
+.nav {
+  background-color: red;
+  color: white;
+}
+
+.score {
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+h3 {
+  background: linear-gradient(to right, red, purple);
+  padding: 10px;
+}
+
+.card {
+  cursor: pointer;
+}
+
