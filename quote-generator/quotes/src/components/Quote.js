@@ -21,20 +21,19 @@ const Quote = () => {
             randomNum = getRandomNumber();
         } while (randomNum === indx)
 
-        setQuote(quotes[randomNum]);
+        setQuote(quotes[randomNum]); 
         setIndex(randomNum);
-        getRandomColor();
         console.log(quote.quote);
     }
 
-    const color = getRandomColor();
+    const randomColor = getRandomColor();
 
     return (
-        <div style={{backgroundColor: color}} className='container'>
+        <div style={{backgroundColor: randomColor}} className='container'>
             <div className='quote-block'>
-                <h1 style={{color: color}} className='quote'>"{quote.quote}"</h1>
-                <h5 style={{color: color}} className='author'>-{quote.author === '' ? 'Unknown' : quote.author}-</h5>
-                <button style={{backgroundColor: color}} onClick={getRandomQuote}>New quote</button>
+                <h1 style={{color: randomColor}} className='quote'>"{quote.quote}"</h1>
+                <h5 style={{color: randomColor}} className='author'>-{quote.author === '' ? 'Unknown' : quote.author}-</h5>
+                <button style={{backgroundColor: randomColor}} onClick={getRandomQuote}>New quote</button>
             </div>
         </div>
     )
