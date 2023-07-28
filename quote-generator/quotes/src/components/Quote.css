@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.quote-block {
+    height: auto;
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #917e7e;
+    border-radius: 10px;
+    width: 35rem;
+    margin: auto 0;
+}
+
+.quote {
+    margin: 20px;
+    text-align: left;
+    font-size: 2em;
+}
+
+.author {
+    font-style: italic;
+    text-align: right;
+    margin: 20px;
+}
+
+button {
+    margin: 20px;
+    float: right;
+    border-radius: 5px;
+    height: 35px;
+    width: 100px;
+    font-weight: 700;
+    font-family: "Segoe UI","Tahoma","Geneva","Verdana",sans-serif;
+    color: #fff;
+    cursor: pointer;
+}
