@@ -21,8 +21,8 @@ function App() {
     setHeroes([...heroes]);
   };
 
-  const checkClick = (hero) => {
-    const isClicked = click.some((clickedHero) => clickedHero.id === hero.id);
+  const checkClick = (heroId) => {
+    const isClicked = click.includes(heroId);
     console.log('isClicked:', isClicked);
     if (isClicked) {
       setScore(0);
@@ -33,19 +33,19 @@ function App() {
         return currentTopScore;
       });
       setClick([]);
-      console.log('Click array reset:', click);
+      console.log('Click array reset:', []);
       return true;
     } else {
-      setClick((current) => [...current, hero]);
-      console.log('Updated Click array:', [...click, hero]);
+      setClick((current) => [...current, heroId]);
+      console.log('Updated Click array:', [...click, heroId]);
       return false;
     }
   };
+  
 
-  const handleClick = (e, hero) => {
+  const handleClick = (e, heroId) => {
     e.preventDefault();
-    console.log('Clicked Hero:', hero);
-    if (!checkClick(hero)) {
+    if (!checkClick(heroId)) {
       setScore(currentScore => {
         const newScore = currentScore + 1;
         if (newScore > topScore) {
@@ -67,7 +67,7 @@ function App() {
       <div className='container'>
         <div className='card'>
           {heroes.map(hero => (
-            <Card key={hero.id} name={hero.name} job={hero.occupation} image={hero.image} onClick={(e) => handleClick(e, hero)} />
+            <Card key={hero.id} name={hero.name} job={hero.occupation} image={hero.image} onClick={(e) => handleClick(e, hero.id)} />
           ))}
         </div>
       </div>
