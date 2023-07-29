@@ -14,21 +14,19 @@ function App() {
   }, []);
 
   const shuffleHeroes = () => {
-    const shuffledHeroes = [...heroes];
-    for (let i = shuffledHeroes.length - 1; i > 0; i--) {
+    for (let i = heroes.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      [shuffledHeroes[i], shuffledHeroes[j]] = [shuffledHeroes[j], shuffledHeroes[i]];
+      [heroes[i], heroes[j]] = [heroes[j], heroes[i]];
     }
-    setHeroes(shuffledHeroes);
-    console.log('Shuffled Heroes:', shuffledHeroes);
+    setHeroes([...heroes]);
   };
 
   const checkClick = (hero) => {
-    const isClicked = click.some(clickedHero => clickedHero.id === hero.id);
+    const isClicked = click.some((clickedHero) => clickedHero.id === hero.id);
     console.log('isClicked:', isClicked);
     if (isClicked) {
       setScore(0);
-      setTopScore(currentTopScore => {
+      setTopScore((currentTopScore) => {
         if (score > currentTopScore) {
           return score;
         }
@@ -38,7 +36,7 @@ function App() {
       console.log('Click array reset:', click);
       return true;
     } else {
-      setClick(current => [...current, hero]);
+      setClick((current) => [...current, hero]);
       console.log('Updated Click array:', [...click, hero]);
       return false;
     }
@@ -66,10 +64,12 @@ function App() {
         <p className='score tr f5'>Score: {score} Top Score: {topScore}</p>
         <h3>Get points by clicking on image but don't click on any more than once!</h3>
       </div>
-      <div className='card'>
-        {heroes.map(hero => (
-          <Card key={hero.id} name={hero.name} job={hero.occupation} image={hero.image} onClick={(e) => handleClick(e, hero)} />
-        ))}
+      <div className='container'>
+        <div className='card'>
+          {heroes.map(hero => (
+            <Card key={hero.id} name={hero.name} job={hero.occupation} image={hero.image} onClick={(e) => handleClick(e, hero)} />
+          ))}
+        </div>
       </div>
     </div>
   );
