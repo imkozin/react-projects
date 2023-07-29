@@ -6,47 +6,32 @@ import { useState, useEffect } from 'react';
 function App() {
   const [heroes, setHeroes] = useState([]);
   const [score, setScore] = useState(0);
-  const [click, setClick] = useState([]);
   const [topScore, setTopScore] = useState(0);
+  const [clickedHeroes, setClickedHeroes] = useState([]);
 
   useEffect(() => {
     setHeroes(data.superheroes);
   }, []);
 
   const shuffleHeroes = () => {
-    for (let i = heroes.length - 1; i > 0; i--) {
+    const shuffledHeroes = [...heroes];
+    for (let i = shuffledHeroes.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      [heroes[i], heroes[j]] = [heroes[j], heroes[i]];
+      [shuffledHeroes[i], shuffledHeroes[j]] = [shuffledHeroes[j], shuffledHeroes[i]];
     }
-    setHeroes([...heroes]);
+    setHeroes(shuffledHeroes);
   };
-
-  const checkClick = (heroId) => {
-    const isClicked = click.includes(heroId);
-    console.log('isClicked:', isClicked);
-    if (isClicked) {
-      setScore(0);
-      setTopScore((currentTopScore) => {
-        if (score > currentTopScore) {
-          return score;
-        }
-        return currentTopScore;
-      });
-      setClick([]);
-      console.log('Click array reset:', []);
-      return true;
-    } else {
-      setClick((current) => [...current, heroId]);
-      console.log('Updated Click array:', [...click, heroId]);
-      return false;
-    }
-  };
-  
 
   const handleClick = (e, heroId) => {
     e.preventDefault();
-    if (!checkClick(heroId)) {
-      setScore(currentScore => {
+    const isClicked = clickedHeroes.includes(heroId); 
+    if (isClicked) {
+      setScore(0);
+      setClickedHeroes([]); 
+      shuffleHeroes();
+    } else {
+      setClickedHeroes((currentClickedHeroes) => [...currentClickedHeroes, heroId]); 
+      setScore((currentScore) => {
         const newScore = currentScore + 1;
         if (newScore > topScore) {
           setTopScore(newScore);
