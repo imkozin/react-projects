@@ -3,56 +3,55 @@ import Card from './components/Card';
 import data from './components/superheroes.json';
 import { useState, useEffect } from 'react';
 
+
 function App() {
-  const [heroes, setHeroes] = useState([]);
-  const [score, setScore] = useState(0);
-  const [topScore, setTopScore] = useState(0);
-  const [clickedHeroes, setClickedHeroes] = useState([]);
+  const [heroes, setHeroes] = useState(data.superheroes);
+  const [currentScore, setCurrentScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+
+  const shuffleHeroes = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
   useEffect(() => {
-    setHeroes(data.superheroes);
-  }, []);
-
-  const shuffleHeroes = () => {
-    const shuffledHeroes = [...heroes];
-    for (let i = shuffledHeroes.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [shuffledHeroes[i], shuffledHeroes[j]] = [shuffledHeroes[j], shuffledHeroes[i]];
+    if (currentScore > highScore) {
+      setHighScore(currentScore);
     }
-    setHeroes(shuffledHeroes);
-  };
+    setHeroes((prevList) => shuffleHeroes(prevList)); // Shuffle the heroesList after the click event has been processed
+  }, [currentScore, highScore]);
 
-  const handleClick = (e, heroId) => {
-    e.preventDefault();
-    const isClicked = clickedHeroes.includes(heroId); 
-    if (isClicked) {
-      setScore(0);
-      setClickedHeroes([]); 
-      shuffleHeroes();
-    } else {
-      setClickedHeroes((currentClickedHeroes) => [...currentClickedHeroes, heroId]); 
-      setScore((currentScore) => {
-        const newScore = currentScore + 1;
-        if (newScore > topScore) {
-          setTopScore(newScore);
-        }
-        return newScore;
-      });
-      shuffleHeroes();
+  const handleClick = (heroId) => {
+    const heroIndex = heroes.findIndex((hero) => hero.id = heroId);
+    const updatedHeroes = [...heroes];
+    if (heroIndex !== -1) {
+      if (!heroes[heroIndex].clicked) {
+        // The hero is not clicked before
+        updatedHeroes[heroIndex].clicked = true;
+        setCurrentScore((prevScore) => prevScore + 1);
+      } else {
+        // The hero is already clicked, reset the game
+        setHeroes((prevList) => prevList.map((hero) => ({ ...hero, clicked: false })));
+        setCurrentScore(0);
+      }
     }
   };
+  console.log(heroes);
 
   return (
     <div>
       <div className='nav'>
         <h2 className='f2 tl'>Superheroes Memory Game</h2>
-        <p className='score tr f5'>Score: {score} Top Score: {topScore}</p>
+        <p className='score tr f5'>Score: {currentScore} Top Score: {highScore}</p>
         <h3>Get points by clicking on image but don't click on any more than once!</h3>
       </div>
       <div className='container'>
         <div className='card'>
           {heroes.map(hero => (
-            <Card key={hero.id} name={hero.name} job={hero.occupation} image={hero.image} onClick={(e) => handleClick(e, hero.id)} />
+            <Card key={hero.id} name={hero.name} job={hero.occupation} image={hero.image} onClick={() => handleClick(hero.id)} />
           ))}
         </div>
       </div>
