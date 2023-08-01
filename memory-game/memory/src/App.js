@@ -3,7 +3,6 @@ import Card from './components/Card';
 import data from './components/superheroes.json';
 import { useState, useEffect } from 'react';
 
-
 function App() {
   const [heroes, setHeroes] = useState(data.superheroes);
   const [currentScore, setCurrentScore] = useState(0);
